@@ -111,11 +111,9 @@ The dashboard will use the trained model and its associated preprocessing pipeli
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/aqi-prediction-ml.git
+git clone https://github.com/swanandiz-07/aqi-prediction-ml.git
 cd aqi-prediction-ml
 ```
-
-Replace `YOUR_USERNAME` with the GitHub username or organization that owns the repository.
 
 ### 2. Install dependencies
 
