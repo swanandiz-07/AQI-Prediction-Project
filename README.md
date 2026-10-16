@@ -64,7 +64,7 @@ The following regression models are planned for comparison:
 | Linear Regression | Baseline model for understanding linear relationships |
 | Random Forest Regressor | Captures nonlinear relationships using multiple decision trees |
 | Gradient Boosting Regressor | Builds an ensemble of trees sequentially to reduce prediction errors |
-| XGBoost Regressor | Uses gradient-boosted trees for efficient predictive modelling |
+| Decision Tree Regressor | Learns nonlinear relationships between pollutant levels and AQI |
 
 The final model will be selected based on its evaluation results rather than assuming that one algorithm will always perform best.
 
