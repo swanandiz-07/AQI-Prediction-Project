@@ -1,12 +1,15 @@
 
-# Python virtual environments
+# Trained model files — keep outside GitHub
+models/*.joblib
+models/*.pkl
+models/*.tmp
+
+# Local datasets
+data/*.csv
+
+# Python environments and caches
 .venv/
 venv/
-env/
-
-# Python cache files
 __pycache__/
 *.py[cod]
-
-# Local environment variables
 .env

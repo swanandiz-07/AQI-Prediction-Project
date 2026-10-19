@@ -1,158 +1,159 @@
-# Air Quality Index (AQI) Prediction Using Machine Learning
+# AQI Prediction Using Machine Learning
 
-## About the Project
+An interactive dashboard for exploring historical air quality data in India and estimating the Air Quality Index (AQI) using regression models.
 
-Air pollution is a major environmental concern, especially in urban areas where pollutant levels can change depending on traffic, industrial activity, weather conditions, and other factors. Monitoring air quality helps us understand pollution levels and the potential risks associated with them.
+## Project Overview
 
-This project aims to develop a machine learning model that predicts the Air Quality Index (AQI) using pollutant concentration measurements. We will compare different regression algorithms to identify a model that performs well on unseen data and build an interactive dashboard using Streamlit to make predictions easier to access.
+Air pollution affects public health and environmental quality. This project uses historical air quality observations to investigate pollutant patterns, compare machine learning regression models, and estimate AQI from pollutant concentration measurements.
 
-The project is being developed as part of our machine learning coursework by a team of three members.
+The project was developed as a three-member academic team project using Python, Google Colab, scikit-learn, Streamlit, and GitHub.
 
 ## Objectives
 
-- Study and preprocess historical air quality data.
-- Handle missing values, duplicate records, and potential outliers.
-- Explore pollutant distributions and their relationships with AQI.
-- Train and compare multiple machine learning regression models.
-- Evaluate model performance using standard regression metrics.
-- Develop a Streamlit dashboard for AQI prediction and data visualization.
-- Document the complete workflow and make the project reproducible through GitHub.
+- Clean and analyze historical air quality data.
+- Explore AQI trends, pollutant distributions, and relationships between pollutants.
+- Train and compare multiple regression algorithms.
+- Evaluate model performance using MAE, MSE, RMSE, and R².
+- Develop an interactive dashboard for AQI estimation and data visualization.
+- Document the workflow so the project can be reproduced.
 
 ## Dataset
 
-**Dataset:** Air Quality Data in India (2015–2020)
+**Dataset:** Air Quality Data in India (2015–2020)  
+**Source:** [Kaggle — Air Quality Data in India](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india)
 
-**Source:** [Kaggle – Air Quality Data in India](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india)
+The original `city_day.csv` dataset contains daily air quality observations for Indian cities, including pollutant measurements, dates, and AQI values.
 
-The project uses the `city_day.csv` file, which contains daily air quality observations for multiple Indian cities. It includes pollutant measurements, dates, city information, AQI values, and AQI categories.
+The cleaned dataset used by the dashboard is expected at:
 
-The dataset contains variables such as:
+`data/city_day_cleaned.csv`
+
+The dataset is not included in GitHub if it is excluded by `.gitignore`. Obtain it from the project team when reproducing the analysis.
+
+## Features Used
+
+The model uses these 12 pollutant features:
 
 - PM2.5
 - PM10
-- Nitrogen dioxide (NO2)
-- Sulphur dioxide (SO2)
-- Carbon monoxide (CO)
-- Ozone (O3)
-- AQI
-- AQI category
-- City and date
+- NO
+- NO2
+- NOx
+- NH3
+- CO
+- SO2
+- O3
+- Benzene
+- Toluene
+- Xylene
 
-The dataset also includes other pollutant measurements that may be considered during exploratory analysis.
+**Prediction target:** `AQI`
 
-**Note:** The standard `city_day.csv` file does not include temperature, humidity, or wind speed. The initial version of this project therefore focuses on the available pollutant measurements. Weather variables may be included in a later version if suitable historical weather data can be obtained and matched correctly with the pollution records.
-
-## Project Workflow
-
-The project follows these main stages:
-
-1. **Data collection:** Download the historical air quality dataset from Kaggle.
-2. **Data cleaning:** Inspect data types, missing values, duplicates, invalid measurements, and potential outliers.
-3. **Exploratory data analysis:** Study pollutant distributions, AQI trends, city-wise differences, and correlations.
-4. **Feature preparation:** Select suitable pollutant measurements as input features and AQI as the regression target.
-5. **Model training:** Train and compare multiple regression algorithms using consistent training and testing data.
-6. **Model evaluation:** Compare prediction errors and goodness of fit using standard metrics.
-7. **Dashboard development:** Build an interactive Streamlit interface for AQI prediction and visual analysis.
-8. **Testing and deployment:** Test the application, document setup instructions, and make it accessible through a web link if deployment is successful.
+`AQI_Bucket` is excluded from the model inputs because it is derived from AQI and could cause target leakage.
 
 ## Machine Learning Models
 
-The following regression models are planned for comparison:
+The project compares:
 
-| Model | Purpose |
-|---|---|
-| Linear Regression | Baseline model for understanding linear relationships |
-| Random Forest Regressor | Captures nonlinear relationships using multiple decision trees |
-| Gradient Boosting Regressor | Builds an ensemble of trees sequentially to reduce prediction errors |
-| Decision Tree Regressor | Learns nonlinear relationships between pollutant levels and AQI |
+1. Linear Regression
+2. Decision Tree Regressor
+3. Random Forest Regressor
+4. Gradient Boosting Regressor
 
-The final model will be selected based on its evaluation results rather than assuming that one algorithm will always perform best.
+The preferred model is selected using evaluation results on held-out test data rather than assuming that one algorithm will always perform best.
 
 ## Evaluation Metrics
 
-The models will be evaluated using:
+- **MAE:** Mean Absolute Error; average absolute difference between actual and predicted AQI.
+- **MSE:** Mean Squared Error; penalizes larger errors more strongly.
+- **RMSE:** Root Mean Squared Error; expresses prediction error on the target's numerical scale.
+- **R²:** Coefficient of determination; describes the proportion of target variance explained by the model.
 
-- **Mean Absolute Error (MAE):** Measures the average absolute difference between actual and predicted AQI.
-- **Mean Squared Error (MSE):** Penalizes larger prediction errors more heavily.
-- **Root Mean Squared Error (RMSE):** Measures prediction error on the same numerical scale as AQI.
-- **R-squared (R²):** Measures how well the model explains variation in the target values.
+Final evaluation values should be taken from the final model-training notebook.
 
-All models will be evaluated using the same held-out test data to make the comparison fair.
+## Dashboard
 
-## Streamlit Dashboard
+The Streamlit dashboard is designed to provide:
 
-The planned dashboard will provide a simple interface for exploring air quality predictions.
+- **Overview:** Dataset statistics and historical AQI summaries.
+- **Historical Analysis:** AQI trends, AQI distribution, city comparisons, and pollutant correlations when the cleaned dataset is available.
+- **Predict AQI:** A form for the 12 pollutant inputs, a predicted AQI value, and an AQI category.
+- **Model Performance:** A comparison of regression metrics.
+- **Methodology:** Dataset, features, model workflow, and limitations.
 
-Its intended features include:
+Historical visualizations are calculated from the cleaned dataset. Saved graphs from the analysis notebook may also be retained as project figures.
 
-- Input fields for pollutant concentrations.
-- A button to generate an AQI prediction.
-- Display of the predicted AQI.
-- AQI category display using the appropriate category thresholds.
-- Visualizations of historical AQI trends.
-- Comparison of model performance.
-- Charts showing pollutant distributions and model feature importance.
+## Technology Stack
 
-The dashboard will use the trained model and its associated preprocessing pipeline. Features that are not present in the selected dataset will not be presented as real model inputs unless they are added through a validated extension.
+- Python
+- Google Colab
+- Pandas and NumPy
+- Matplotlib and Plotly
+- Scikit-learn
+- Joblib
+- Streamlit
+- Git and GitHub
 
-## Technologies Used
-
-- **Python** – Main programming language
-- **Google Colab** – Coding, data analysis, and model experimentation
-- **Pandas and NumPy** – Data processing
-- **Matplotlib** – Data visualization
-- **Scikit-learn** – Data preprocessing, regression models, and evaluation
-- **XGBoost** – Gradient-boosting model
-- **Streamlit** – Interactive web dashboard
-- **GitHub** – Version control and project collaboration
-
-## How to Run the Project
+## Run Locally
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/swanandiz-07/aqi-prediction-ml.git
-cd aqi-prediction-ml
+git clone https://github.com/swanandiz-07/AQI-Prediction-Project.git
+cd AQI-Prediction-Project
 ```
 
-### 2. Install dependencies
+### 2. Create and activate a virtual environment
 
-```bash
-pip install -r requirements.txt
+Windows PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 
-### 3. Prepare the dataset
+### 3. Install dependencies
 
-Download the dataset from Kaggle and place `city_day.csv` in the location specified in the data preparation notebook.
-
-### 4. Run the notebooks
-
-Open the notebooks in Google Colab or Jupyter Notebook and run the data preparation and model training steps.
-
-### 5. Run the dashboard
-
-Once `app.py` and the trained model artifact are ready, run:
-
-```bash
-streamlit run app.py
+```powershell
+python -m pip install -r requirements.txt
 ```
 
-The dashboard will open in your browser. The application requires the trained model and preprocessing pipeline to be available at the configured path.
+### 4. Add the required files
+
+Place the cleaned CSV at `data/city_day_cleaned.csv`.
+
+Place the trained model bundle at `models/best_model.joblib`. The bundle must contain the trained estimator or pipeline, its feature list, and the model name.
+
+Use the same scikit-learn version used to serialize the model.
+
+### 5. Launch the dashboard
+
+```powershell
+python -m streamlit run app.py
+```
+
+Streamlit will provide a local URL, usually `http://localhost:8501`.
+
+### 6. Run automated tests
+
+```powershell
+python -m unittest discover -s tests -v
+```
 
 ## Limitations
 
-- The model's predictions depend on the quality and coverage of the historical dataset.
-- Missing observations and differences between cities may affect model performance.
-- The initial dataset does not contain the weather variables proposed in the original project idea.
-- A prediction based on same-day pollutant measurements estimates AQI; it does not necessarily forecast future air quality.
-- Model predictions are estimates and should not be treated as official air quality measurements or health advice.
+- Predictions depend on the quality and coverage of the historical data.
+- Missing measurements, outliers, and differences between cities can affect model performance.
+- The dashboard's estimates are not official air quality measurements.
+- Estimating AQI from supplied pollutant measurements is not the same as forecasting future AQI.
+- Results should not be used as a replacement for official monitoring or public-health guidance.
 
-## Expected Outcome
+## Team Contributions
 
-The expected outcome is a working machine learning pipeline that compares different regression algorithms for AQI estimation, along with an interactive dashboard that presents predictions and relevant visualizations.
+The project is organized across data cleaning and exploratory analysis, model training and evaluation, and dashboard development and deployment.
 
-The project will also provide an opportunity to understand the complete machine learning workflow, from data preparation and model evaluation to application development and deployment.
+Update this section with the team members' names and their final contributions before submission.
 
 ## Acknowledgements
 
-We acknowledge the original dataset contributors and the Kaggle platform for making the air quality data available for educational and research use.
+We acknowledge the dataset contributors and Kaggle for making the historical air quality data available for educational and research purposes.
