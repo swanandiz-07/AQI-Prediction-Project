@@ -92,7 +92,7 @@ st.info(
 # Load model
 # --------------------------------------------------
 try:
-    bundle = load_model()
+    bundle = joblib.load(MODEL_PATH)
     model = bundle["model"]
     features = bundle["features"]
     model_name = bundle["model_name"]
@@ -102,6 +102,18 @@ except Exception as error:
     st.stop()
 
 st.caption(f"Selected model: {model_name}")
+# Compatibility fix for the saved SimpleImputer
+model_pipeline = bundle.get("model")
+
+if hasattr(model_pipeline, "named_steps"):
+    imputer = model_pipeline.named_steps.get("imputer")
+
+    if (
+        imputer is not None
+        and not hasattr(imputer, "_fill_dtype")
+        and hasattr(imputer, "_fit_dtype")
+    ):
+        imputer._fill_dtype = imputer._fit_dtype
 
 # --------------------------------------------------
 # Pollutant input form
